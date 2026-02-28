@@ -9,6 +9,7 @@
             margin: 0;
             padding: 0;
             box-sizing: border-box;
+            cursor: none; /* Esconde cursor padrão */
         }
 
         :root {
@@ -29,7 +30,65 @@
             line-height: 1.6;
         }
 
-        /* Fundo animado com partículas flutuantes */
+        /* CURSOR PERSONALIZADO EM FORMA DE + */
+        .custom-cursor {
+            position: fixed;
+            pointer-events: none;
+            z-index: 10000;
+            mix-blend-mode: difference;
+        }
+
+        /* Linha horizontal do + */
+        .cursor-h {
+            position: absolute;
+            width: 20px;
+            height: 2px;
+            background: #fff;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            transition: all 0.1s ease;
+        }
+
+        /* Linha vertical do + */
+        .cursor-v {
+            position: absolute;
+            width: 2px;
+            height: 20px;
+            background: #fff;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            transition: all 0.1s ease;
+        }
+
+        /* Círculo ao redor (opcional) */
+        .cursor-circle {
+            position: absolute;
+            width: 40px;
+            height: 40px;
+            border: 1px solid rgba(255, 255, 255, 0.5);
+            border-radius: 50%;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            transition: all 0.15s ease;
+        }
+
+        /* Efeito ao hover em links */
+        .custom-cursor.hover .cursor-h,
+        .custom-cursor.hover .cursor-v {
+            background: var(--accent);
+            transform: translate(-50%, -50%) scale(1.5);
+        }
+
+        .custom-cursor.hover .cursor-circle {
+            border-color: var(--accent);
+            transform: translate(-50%, -50%) scale(1.5);
+            background: rgba(87, 242, 135, 0.1);
+        }
+
+        /* Fundo animado */
         .background {
             position: fixed;
             top: 0;
@@ -54,7 +113,6 @@
             background: var(--primary);
             top: -100px;
             left: -100px;
-            animation-delay: 0s;
         }
 
         .orb-2 {
@@ -81,16 +139,7 @@
             66% { transform: translate(-20px, 20px) scale(0.9); }
         }
 
-        /* Container principal */
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 20px;
-            position: relative;
-            z-index: 1;
-        }
-
-        /* Navegação flutuante */
+        /* Navegação */
         nav {
             position: fixed;
             top: 20px;
@@ -103,7 +152,6 @@
             padding: 15px 30px;
             z-index: 1000;
             animation: slideDown 0.8s ease-out;
-            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
         }
 
         @keyframes slideDown {
@@ -131,13 +179,15 @@
             transition: all 0.3s;
             position: relative;
             font-size: 0.95rem;
+            padding: 5px 10px;
         }
 
         nav a::after {
             content: '';
             position: absolute;
             bottom: -5px;
-            left: 0;
+            left: 50%;
+            transform: translateX(-50%);
             width: 0;
             height: 2px;
             background: var(--primary);
@@ -145,12 +195,7 @@
         }
 
         nav a:hover::after {
-            width: 100%;
-        }
-
-        nav a:hover {
-            color: var(--primary);
-            transform: translateY(-2px);
+            width: 80%;
         }
 
         /* Hero Section */
@@ -161,7 +206,6 @@
             justify-content: center;
             text-align: center;
             padding: 120px 20px 80px;
-            position: relative;
         }
 
         .hero-content {
@@ -216,10 +260,37 @@
             margin-right: auto;
         }
 
-        /* Cards de serviços flutuantes */
+        /* Botão CTA */
+        .btn-primary {
+            display: inline-block;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            text-decoration: none;
+            padding: 18px 40px;
+            border-radius: 50px;
+            font-size: 1.1rem;
+            font-weight: 700;
+            transition: all 0.3s;
+            box-shadow: 0 10px 30px rgba(88, 101, 242, 0.4);
+            border: none;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 40px rgba(88, 101, 242, 0.6);
+        }
+
+        /* Serviços */
         .services {
             padding: 80px 0;
-            position: relative;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
         }
 
         .section-title {
@@ -298,24 +369,16 @@
             font-size: 3rem;
             margin-bottom: 20px;
             display: block;
-            animation: bounce 2s infinite;
-        }
-
-        @keyframes bounce {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-10px); }
         }
 
         .card h3 {
             font-size: 1.5rem;
             margin-bottom: 15px;
-            color: var(--text);
         }
 
         .card p {
             color: var(--text-muted);
             font-size: 0.95rem;
-            line-height: 1.6;
         }
 
         .tech-tags {
@@ -336,109 +399,12 @@
             border: 1px solid rgba(88, 101, 242, 0.3);
         }
 
-        /* Botão de contato flutuante */
-        .contact-section {
-            padding: 100px 20px;
-            text-align: center;
-            position: relative;
-        }
-
-        .contact-container {
-            background: rgba(255, 255, 255, 0.03);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 30px;
-            padding: 60px 40px;
-            max-width: 600px;
-            margin: 0 auto;
-            backdrop-filter: blur(20px);
-            position: relative;
-            overflow: hidden;
-        }
-
-        .contact-container::before {
-            content: '';
-            position: absolute;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
-            background: radial-gradient(circle, rgba(88, 101, 242, 0.1) 0%, transparent 70%);
-            animation: rotate 20s linear infinite;
-        }
-
-        @keyframes rotate {
-            from { transform: rotate(0deg); }
-            to { transform: rotate(360deg); }
-        }
-
-        .contact-content {
-            position: relative;
-            z-index: 1;
-        }
-
-        .contact-section h2 {
-            font-size: 2.5rem;
-            margin-bottom: 20px;
-        }
-
-        .contact-section p {
-            color: var(--text-muted);
-            margin-bottom: 40px;
-            font-size: 1.1rem;
-        }
-
-        .btn-contact {
-            display: inline-block;
-            background: linear-gradient(135deg, var(--primary), var(--secondary));
-            color: white;
-            text-decoration: none;
-            padding: 20px 50px;
-            border-radius: 50px;
-            font-size: 1.2rem;
-            font-weight: 700;
-            letter-spacing: 1px;
-            text-transform: uppercase;
-            transition: all 0.3s;
-            position: relative;
-            overflow: hidden;
-            box-shadow: 0 10px 30px rgba(88, 101, 242, 0.4);
-            animation: floatBtn 3s ease-in-out infinite;
-            border: none;
-            cursor: pointer;
-        }
-
-        @keyframes floatBtn {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-5px); }
-        }
-
-        .btn-contact:hover {
-            transform: translateY(-3px) scale(1.05);
-            box-shadow: 0 20px 40px rgba(88, 101, 242, 0.6);
-        }
-
-        .btn-contact::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
-            transition: left 0.5s;
-        }
-
-        .btn-contact:hover::before {
-            left: 100%;
-        }
-
         /* Footer */
         footer {
             text-align: center;
             padding: 40px 20px;
             color: var(--text-muted);
             border-top: 1px solid rgba(255, 255, 255, 0.1);
-            margin-top: 50px;
         }
 
         /* Responsividade */
@@ -446,26 +412,24 @@
             h1 { font-size: 2.5rem; }
             .section-title { font-size: 2rem; }
             nav { padding: 12px 20px; }
-            nav ul { gap: 20px; font-size: 0.9rem; }
+            nav ul { gap: 15px; }
             .cards-grid { grid-template-columns: 1fr; }
-            .contact-container { padding: 40px 20px; }
-        }
-
-        /* Efeito de partículas no cursor */
-        .cursor-particle {
-            position: fixed;
-            width: 10px;
-            height: 10px;
-            background: var(--primary);
-            border-radius: 50%;
-            pointer-events: none;
-            z-index: 9999;
-            opacity: 0;
-            transition: opacity 0.3s;
+            
+            /* Cursor menor em mobile */
+            .cursor-h { width: 15px; }
+            .cursor-v { height: 15px; }
+            .cursor-circle { width: 30px; height: 30px; }
         }
     </style>
 </head>
 <body>
+    <!-- Cursor Personalizado -->
+    <div class="custom-cursor" id="cursor">
+        <div class="cursor-circle"></div>
+        <div class="cursor-h"></div>
+        <div class="cursor-v"></div>
+    </div>
+
     <!-- Fundo animado -->
     <div class="background">
         <div class="floating-orb orb-1"></div>
@@ -476,14 +440,14 @@
     <!-- Navegação -->
     <nav>
         <ul>
-            <li><a href="#inicio">Início</a></li>
-            <li><a href="#servicos">Serviços</a></li>
-            <li><a href="#contacto">Contacto</a></li>
+            <li><a href="index.html">Início</a></li>
+            <li><a href="index.html#servicos">Serviços</a></li>
+            <li><a href="contacto.html">Contacto</a></li>
         </ul>
     </nav>
 
     <!-- Hero Section -->
-    <section class="hero" id="inicio">
+    <section class="hero">
         <div class="hero-content">
             <span class="badge">🚀 Disponível para projetos</span>
             <h1>Desenvolvedor de Bots Discord</h1>
@@ -491,6 +455,7 @@
                 Especialista em criar experiências interativas e automatizadas para comunidades. 
                 Transformo suas ideias em bots inteligentes e funcionais.
             </p>
+            <a href="contacto.html" class="btn-primary">📩 Contactar-me</a>
         </div>
     </section>
 
@@ -542,58 +507,58 @@
         </div>
     </section>
 
-    <!-- Contacto -->
-    <section class="contact-section" id="contacto">
-        <div class="contact-container">
-            <div class="contact-content">
-                <h2>Vamos trabalhar juntos?</h2>
-                <p>Estou pronto para transformar o seu servidor Discord com um bot personalizado e profissional.</p>
-                <a href="https://discord.gg/nu5Shaf4" class="btn-contact" target="_blank">
-                    📩 Contactar-me
-                </a>
-            </div>
-        </div>
-    </section>
-
     <!-- Footer -->
     <footer>
         <p>&copy; 2024 DevBot. Desenvolvido com 💜 e muito código.</p>
     </footer>
 
     <script>
-        // Animação suave ao scroll
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                const target = document.querySelector(this.getAttribute('href'));
-                if (target) {
-                    target.scrollIntoView({
-                        behavior: 'smooth',
-                        block: 'start'
-                    });
-                }
+        // CURSOR PERSONALIZADO EM FORMA DE +
+        const cursor = document.getElementById('cursor');
+        let mouseX = 0, mouseY = 0;
+        let cursorX = 0, cursorY = 0;
+
+        // Segue o mouse com suavidade (efeito de delay)
+        document.addEventListener('mousemove', (e) => {
+            mouseX = e.clientX;
+            mouseY = e.clientY;
+        });
+
+        function animateCursor() {
+            // Interpolação suave (efeito de "arrastar")
+            cursorX += (mouseX - cursorX) * 0.15;
+            cursorY += (mouseY - cursorY) * 0.15;
+            
+            cursor.style.left = cursorX + 'px';
+            cursor.style.top = cursorY + 'px';
+            
+            requestAnimationFrame(animateCursor);
+        }
+        animateCursor();
+
+        // Efeito hover em links e botões
+        const interactiveElements = document.querySelectorAll('a, button, .btn-primary, .card');
+        
+        interactiveElements.forEach(el => {
+            el.addEventListener('mouseenter', () => {
+                cursor.classList.add('hover');
+            });
+            
+            el.addEventListener('mouseleave', () => {
+                cursor.classList.remove('hover');
             });
         });
 
-        // Efeito de partículas no cursor
-        document.addEventListener('mousemove', (e) => {
-            const particle = document.createElement('div');
-            particle.className = 'cursor-particle';
-            particle.style.left = e.clientX + 'px';
-            particle.style.top = e.clientY + 'px';
-            document.body.appendChild(particle);
-
-            setTimeout(() => {
-                particle.style.opacity = '0.5';
-            }, 10);
-
-            setTimeout(() => {
-                particle.style.opacity = '0';
-                setTimeout(() => particle.remove(), 300);
-            }, 100);
+        // Esconder cursor quando sai da janela
+        document.addEventListener('mouseleave', () => {
+            cursor.style.opacity = '0';
+        });
+        
+        document.addEventListener('mouseenter', () => {
+            cursor.style.opacity = '1';
         });
 
-        // Animação de entrada dos cards ao scroll
+        // Animação de entrada dos cards
         const observerOptions = {
             threshold: 0.1,
             rootMargin: "0px 0px -50px 0px"
@@ -608,7 +573,6 @@
             });
         }, observerOptions);
 
-        // Aplicar animação aos cards
         document.querySelectorAll('.card').forEach((card, index) => {
             card.style.opacity = '0';
             card.style.transform = 'translateY(30px)';
@@ -616,7 +580,7 @@
             observer.observe(card);
         });
 
-        // Efeito de digitação no título (opcional)
+        // Animação de digitação
         const title = document.querySelector('h1');
         const originalText = title.textContent;
         title.textContent = '';
@@ -629,10 +593,9 @@
                 setTimeout(typeWriter, 100);
             }
         };
-        
         setTimeout(typeWriter, 500);
 
-        // Atualizar ano no footer automaticamente
+        // Atualizar ano
         document.querySelector('footer p').innerHTML = `&copy; ${new Date().getFullYear()} DevBot. Desenvolvido com 💜 e muito código.`;
     </script>
 </body>
